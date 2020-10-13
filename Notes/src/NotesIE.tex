@@ -372,22 +372,29 @@
   The \textit{'Freemium'} business model is to offer different versions at different prices, \textit{including a free one}. The hope is a consumer will \textit{upgrade} to a paid version because they like the service.
 \end{proposition}
 
-\section{Auctions}
+\section{Auction Theory}
 
-\begin{proposition}{Values in an Auction}
-  Each bidder has their own \textit{``private''} value which is the amount they are willing to pay (at most) for an item. Ideally a bidder will pay below this value.
-\end{proposition}
+\begin{remark}{Why Use Auctions?}
+  \textit{Auctions} allow an item to be sold for a price which is wholely decided by a consumer's willingness to spend. \textit{Auctions} are a mechanism for first-degree \textit{price discrimination}, this makes them particulary popular online.
+  \par Auctions are used when sellers are \textit{uncertain} about the value consumers place on an object (common with one off items)
+\end{remark}
+
+\begin{definition}{Private Value}
+  An object's \textit{Private Value} is the value each consumer places on the object. Each bidder knows their private value for an object, but do not know the private value of others nor does knowledge of other bidders' private values affect your private value. This situation is common for consumable goods, less so with investments.
+\end{definition}
+
+\begin{definition}{Interdependence}
+  \textit{Interdependence} occurs when a bidder does know have a fixed value for an object and use other bids to improve their estimate of an objects value. This is common when other bidders may have more information.
+\end{definition}
 
 \begin{definition}{Open Auction}
   In an \textit{Open Auction} all bids are known to all particpants.
 \end{definition}
 
-\begin{definition}{Sealed Auction}
-  In a \textit{Sealed Auction} bidding is done in private. Participants do not know what others have bid.
-\end{definition}
+\subsection{Open Auctions}
 
 \begin{definition}{English Auction}
-  Used in \textit{Homes under the Hammer}.
+  AKA \textit{Open Ascending-Price Auction}. Used in \textit{Homes under the Hammer}.
   \begin{enumerate}
     \item The auctioneer announces a (low) price to everyone.
     \item If a bidder is happy to pay that price they raise their hand. (Price is reduced if no one bids).
@@ -395,15 +402,35 @@
     \item ii)-iii) repeat until no-one accepts the new higher price (ie no hands are raised)
     \item The item is sold to the person who bid last, at the price of that last bid.
   \end{enumerate}
+  Bidders can infer information from when others drop out of an auction. However, with \textit{Private Values} this will not change their strategy (it would for \textit{Interdependence}).
 \end{definition}
 
+\begin{proposition}{English Auction - Optimal Strategy}
+  Let $v$ be the private value a bidder assigns to an object
+  \begin{itemize}
+    \item It is not optimal for a bidder to bid a price $p$ if $p>v$ as the bidder makes a loss.
+    \item It is not optimal for a bidder to drop out at a price $p<v$ as the bidder still has surplus demand.
+  \end{itemize}
+  Therefore, the optimal strategy is to bid on any price $p$ that does not exceed $v$.
+\end{proposition}
+
 \begin{definition}{Dutch Auction}
-  Used in \textit{Dutch Flower Markets}.
+  AKA \textit{Open Descending-Price Auction}. Used in \textit{Dutch Flower Markets}.
   \begin{enumerate}
     \item The auctioneer announces a (high) price to every.
     \item The auctioneer keep reducing the price until someone bids (raises their hand).
     \item The item is sold to this (first) bidder, at the price the auction was stopped.
   \end{enumerate}
+\end{definition}
+
+\begin{remark}{Strategic Equivalence of Dutch \& First-Price Sealed Bid Auctions}
+  Bidding a certain amount in a FPSB auction is equivalent to offering to buy at that amount in a Dutch auction. Thus they are \textit{Straegically Equivalent} (for all strategies in one game there is a strategy in the other which will produce the same outcome).
+\end{remark}
+
+\subsection{Sealed Auctions}
+
+\begin{definition}{Sealed Auction}
+  In a \textit{Sealed Auction} bidding is done in private. Participants do not know what others have bid.
 \end{definition}
 
 \begin{definition}{First-Price Sealed Bid Auction}
@@ -416,11 +443,21 @@
 \end{definition}
 
 \begin{definition}{Second-Price Sealed Bid}
+  AKA a \textit{Vickery Auction}
   \begin{enumerate}
     \item Auctioneer announces the auction is open and how long it is open for.
     \item Each participant makes a single secret bit.
     \item The highest bid will win, and will pay the price of the second highest bid. (ie pay \textit{Second-Price})
   \end{enumerate}
 \end{definition}
+
+\begin{proof}{SPSB Auction - Optimal Strategy}
+  Let $v$ be the private value a bidder assigns to an object, $p$ be the value they bid and $c$ be the greatest value of a competitor bid.
+  \par If $p=v$
+  \begin{itemize}
+    \item Bidder wins if $c<p=v$ for a profit of $(v-c)$.
+    \item Does not win if $v<c$
+  \end{itemize}
+\end{proof}
 
 \end{document}

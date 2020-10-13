@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[margin=1in, paperwidth=8.3in, paperheight=11.7in]{geometry}
-\usepackage{amsmath,amsfonts,fancyhdr,graphicx}
+\usepackage{amsmath,amsfonts,fancyhdr,graphicx,caption,subcaption}
 \graphicspath{ {img/} }
 \usepackage[section,nohyphen]{DomH}
 \headertitle{Internet Economics and Financial Technology - Notes}
@@ -12,6 +12,8 @@
 \author{Dom Hutchinson}
 \date{\today}
 \maketitle
+
+\tableofcontents\newpage
 
 \section{The Big Picture}
 
@@ -142,6 +144,67 @@
     \item A \textit{45 degree} demand curve has \textit{Unit Price Elasticity} as an $\Delta\%$ change in supply will produce an $\Delta\%$ change in demand.
   \end{itemize}
 \end{definition}
+
+\subsection{Price Discrimination}
+
+\begin{definition}{Price Discrimination}
+  \textit{Price Discrimination} is the practice of charging different prices to different customers for the same product. There are three levels of price discrimination
+  \begin{itemize}
+    \item[$1^\text{st}$ Degree]  \textit{Personalised} pricing. The business charges the maximum possible price for each unit sold (perfect price discrimination).
+    \item[$2^\text{nd}$ Degree]  Product \textit{versioning} or \textit{menu pricing}. A company charges a different price for different quantities/qualities (ie bulk discount). Consumers have a choice over which version they buy, and thus the price.
+    \item[$3^\text{rd}$ Degree]  \textit{Group} pricing. The business charges a different price to different customer groups (e.g. age,location). The consumer does not get to choose their group. The groupings try to separate customers by their \textit{price elasticity} (The more price elastic charged less).
+  \end{itemize}
+  See \texttt{Figure 3}
+
+  \begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[b]{.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{personalisedPricing.PNG}
+         \caption{$1^\text{st}$ Degree}
+    \end{subfigure}
+    \begin{subfigure}[b]{.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{versioningPricing.PNG}
+        \caption{$2^\text{nd}$ Degree}
+    \end{subfigure}
+    \begin{subfigure}[b]{.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{groupPricing.PNG}
+         \caption{$3^\text{rd}$ Degree}
+     \end{subfigure}
+    \caption{Potential revenue increases for different pricing strategies}
+  \end{figure}
+
+\end{definition}
+
+\begin{proposition}{Requirements for Price Discrimination}
+  For a seller to be able to effectively price discriminate they must fulfil the following
+  \begin{enumerate}
+    \item Be able to \textit{distinguish between customers} so as to know what price to charge them.
+    \item Have enough \textit{market power} to be able to set prices above marginal costs.
+    \item \textit{Resale} must be impractical to prevent arbitrage.
+  \end{enumerate}
+  It is generally easier for online business to meet these criteria.
+\end{proposition}
+
+\begin{definition}{Net Utility}
+  The \textit{Net Utility} of a product to a consumer is the difference between the price of the product and the consumer's perceived value of the product. (e.g. If a product is sold at £5 but a consumer values it at £7, the net utility is £7-£5=£2). It is assumed a customer will never by a product that has a \textit{negative net utility} to them.
+\end{definition}
+
+\begin{example}{Economics of Versioning}
+  Suppose we have a product priced at £10. Consider two customers: \textit{addict} who values it at £20; and \textit{casual} who values it at £8. The company will sell a single unit (to \textit{addict}) at £10.
+  \par Now, suppose the company brought in a \textit{cut-down} version at £5 which \textit{addict} values at £8; and the casual user at £7. The company will now sell one full product (to \textit{addict}) and one \textit{cut-down} product (to \textit{casual}) for a total of £15.
+  \par In fact, pricing the \textit{cut-down} version at £7 and the \textit{full} version at £19 would maximise profit (assuming customers go for the superior product when they have the same net utility for both) as this would be a perfect price for  \textit{casual} and the net utility is the same (£1) for \textit{addict} for both products.
+\end{example}
+
+\begin{proposition}{Competing against Yourself}
+  A risk of versioning is that consumers who are willing to pay for the higher price, will choose to pay for the lower price one (due to greater net-utility). Thus choosing pricing points \& functionalities is therefore critical to business success.
+\end{proposition}
+
+\begin{proposition}{Bundling}
+  \textit{Bundling} is a form of \textit{versioning} where several goods are sold together for a single price. (e.g. microsoft office). Bundling is used to sell customers products they would not otherwise buy. Bundling can create barries to entry for competitor producers as it requires competitors to produce a wider varity of product (e.g. a spreadsheet software \& word processor rather than just one).
+\end{proposition}
 
 \section{The Economics of The Internet}
 
@@ -275,6 +338,89 @@
   \end{enumerate}
 \end{remark}
 
-\subsection{Digital Monopolies}
+\subsection{Price Discrimination Online}
+
+\begin{remark}{Personalised Pricing Online}
+  \begin{itemize}
+    \item Consumers tend perceive personalised pricing as \textit{unfair}.
+    \item Consumers like \textit{transparency} (i.e. how a price is decided).
+    \item European data protection laws \textit{require} companies inform people about the specific purpose of processing their personal data.
+  \end{itemize}
+\end{remark}
+
+\begin{proposition}{Digital Product Versioning}
+  \begin{itemize}
+    \item Digital versions are used extensively and creatively as they are easy to prepare and near-zero cost to duplicate.
+    \item Buyers have a choice over which version to buy, so do not find the practice controversial.
+    \item \textit{Personalisation of Product} is an extreme typr of product versioning (becoming closer to $1^\text{st}$ degree price discrimination) as it allows user to specify many properties (e.g. screen quality, amount of ram \& storage for a pc).
+    \item People tend to \textit{upsell} towards an ``almost top option'' when given a choice (the 2nd most expensive bottle of wine is often the most popular).
+    \item Product versioning can cause you to \textit{compete with yourself} as some people who would have payed the higher price, will go for the lower price.
+  \end{itemize}
+\end{proposition}
+
+\begin{remark}{Unbundling}
+  \textit{Bundling} is common with physical software but there is also a practice of \textit{unbundling}. Since there is no physical substrate online there is less commercial pressure to bundle. (e.g. publishers can sell individual articles rather than a full magazine).
+\end{remark}
+
+\begin{remark}{'Free' Digital Versions}
+  As the duplication cost of digital goods is almost zero, many are given away for free. In these cases there are still several ways for producers to make money: cut-down versions encourage you to buy a full version; Artificial delay (e.g. stock feeds); Ads (or pay for no adds).
+  \par \textit{'Free'} versions allow a customer to build a truer valuation of a product, particularly useful for \textit{experience goods}.
+  \par Even if a user is on the free model they are building the \textit{network effect} of the product and likely increasing the \textit{swapping costs} they will experience if they want to change product.
+\end{remark}
+
+\begin{proposition}{Freemium Model}
+  The \textit{'Freemium'} business model is to offer different versions at different prices, \textit{including a free one}. The hope is a consumer will \textit{upgrade} to a paid version because they like the service.
+\end{proposition}
+
+\section{Auctions}
+
+\begin{proposition}{Values in an Auction}
+  Each bidder has their own \textit{``private''} value which is the amount they are willing to pay (at most) for an item. Ideally a bidder will pay below this value.
+\end{proposition}
+
+\begin{definition}{Open Auction}
+  In an \textit{Open Auction} all bids are known to all particpants.
+\end{definition}
+
+\begin{definition}{Sealed Auction}
+  In a \textit{Sealed Auction} bidding is done in private. Participants do not know what others have bid.
+\end{definition}
+
+\begin{definition}{English Auction}
+  Used in \textit{Homes under the Hammer}.
+  \begin{enumerate}
+    \item The auctioneer announces a (low) price to everyone.
+    \item If a bidder is happy to pay that price they raise their hand. (Price is reduced if no one bids).
+    \item Auctioneer will announce that that bidder is currently winning and will announce a new, higher price.
+    \item ii)-iii) repeat until no-one accepts the new higher price (ie no hands are raised)
+    \item The item is sold to the person who bid last, at the price of that last bid.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}{Dutch Auction}
+  Used in \textit{Dutch Flower Markets}.
+  \begin{enumerate}
+    \item The auctioneer announces a (high) price to every.
+    \item The auctioneer keep reducing the price until someone bids (raises their hand).
+    \item The item is sold to this (first) bidder, at the price the auction was stopped.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}{First-Price Sealed Bid Auction}
+  Used to buy \textit{Houses in Scotland}.
+  \begin{enumerate}
+    \item Auctioneer announces the auction is open and how long it is open for.
+    \item Each participant makes a single secret bit.
+    \item The highest bid will win, and will pay that price. (ie pay \textit{First-Price})
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}{Second-Price Sealed Bid}
+  \begin{enumerate}
+    \item Auctioneer announces the auction is open and how long it is open for.
+    \item Each participant makes a single secret bit.
+    \item The highest bid will win, and will pay the price of the second highest bid. (ie pay \textit{Second-Price})
+  \end{enumerate}
+\end{definition}
 
 \end{document}

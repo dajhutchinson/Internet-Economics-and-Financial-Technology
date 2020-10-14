@@ -376,7 +376,8 @@
 
 \begin{remark}{Why Use Auctions?}
   \textit{Auctions} allow an item to be sold for a price which is wholely decided by a consumer's willingness to spend. \textit{Auctions} are a mechanism for first-degree \textit{price discrimination}, this makes them particulary popular online.
-  \par Auctions are used when sellers are \textit{uncertain} about the value consumers place on an object (common with one off items)
+  \par Auctions are used when sellers are \textit{uncertain} about the value consumers place on an object (common with one off items). In this case auctions are good as they allow for \textit{price discovery}.
+  \par Auctions are easy to automate and a form of differential pricing.
 \end{remark}
 
 \begin{definition}{Private Value}
@@ -389,6 +390,23 @@
 
 \begin{definition}{Open Auction}
   In an \textit{Open Auction} all bids are known to all particpants.
+\end{definition}
+
+\begin{remark}{Assumptions in Auction Theory}
+  In Auction theory several assumptions are made:
+  \begin{itemize}
+    \item All auctions are equally attractive (ie there are no auctions where no one turns up);
+    \item There is no collusion between bidders;
+  \end{itemize}
+  These assumptions means auction theory often does not work well in practice.
+\end{remark}
+
+\begin{remark}{Attendance at Auctions}
+  Entering an auction can be quite involved, so often bidders will skip auctions they don't think they can win.
+\end{remark}
+
+\begin{definition}{Signalling}
+  During an auction a bidder may place a \textit{`weird`} bid which signals their intent for the rest of the auction to other bidders. This is a form of collusion without any prior agreement necessary. (Consider the T-Mobile - Mannesbane auction for parts of the german telephone network).
 \end{definition}
 
 \subsection{Open Auctions}
@@ -414,6 +432,10 @@
   Therefore, the optimal strategy is to bid on any price $p$ that does not exceed $v$.
 \end{proposition}
 
+\begin{remark}{Weak Bidders}
+  It is harder for a weak bidder to win an English auction as stronger bidders can just accept the next price.
+\end{remark}
+
 \begin{definition}{Dutch Auction}
   AKA \textit{Open Descending-Price Auction}. Used in \textit{Dutch Flower Markets}.
   \begin{enumerate}
@@ -423,8 +445,12 @@
   \end{enumerate}
 \end{definition}
 
-\begin{remark}{Strategic Equivalence of Dutch \& First-Price Sealed Bid Auctions}
-  Bidding a certain amount in a FPSB auction is equivalent to offering to buy at that amount in a Dutch auction. Thus they are \textit{Straegically Equivalent} (for all strategies in one game there is a strategy in the other which will produce the same outcome).
+\begin{proposition}{Dutch Auction - Optimal Strategy}
+  Shade you bid. i.e. bid $p<v$ where $v$ is your private value.
+\end{proposition}
+
+\begin{remark}{Robustness}
+  Collusion is much easier in an open auction, meaning the auction is less robust.
 \end{remark}
 
 \subsection{Sealed Auctions}
@@ -442,6 +468,10 @@
   \end{enumerate}
 \end{definition}
 
+\begin{proposition}{FPSB - Optimal Strategy}
+  Shade you bid. i.e. bid $p<v$ where $v$ is your private value.
+\end{proposition}
+
 \begin{definition}{Second-Price Sealed Bid}
   AKA a \textit{Vickery Auction}
   \begin{enumerate}
@@ -453,11 +483,54 @@
 
 \begin{proof}{SPSB Auction - Optimal Strategy}
   Let $v$ be the private value a bidder assigns to an object, $p$ be the value they bid and $c$ be the greatest value of a competitor bid.
-  \par If $p=v$
+  \par If $p=v$ then
   \begin{itemize}
     \item Bidder wins if $c<p=v$ for a profit of $(v-c)$.
-    \item Does not win if $v<c$
+    \item Does not win if $v=p<c$.
   \end{itemize}
+  If $p<v$ then
+  \begin{itemize}
+    \item if $v>p>c$ then the bidder \textit{still} wins with profit $v-c$.
+    \item if $c>v>p$ then the bidder \textit{still} loses.
+    \item if $v>c>p$ then the bidder \underline{now} loses (making less profit), where they wouldn't have with the previous strategy.
+  \end{itemize}
+  Therefore, bidding $p<v$ never increases a bidders profit. A similar argument can be made for not bidding $p>v$.\\
+  The optimal strategy is to bid $p=v$ (same as an \textit{English Auction})
 \end{proof}
+
+\begin{remark}{Auctions for Sellers}
+  If buyers are risk averse (ie don't want to lose the opportunity of buying) then FPSB can increase revenues over SPSB auctions.
+\end{remark}
+
+\begin{remark}{Robustness}
+  Sealed auctions are more robust as you cannot observe other bidders actions, and thus cannot punish a colluder who defects.
+\end{remark}
+
+\begin{remark}{Weak Bidders}
+  Weak Bidders have a better chance of winning a sealed auction as other bidders may over-shade their bid.
+\end{remark}
+
+\subsection{Equivalent Auctions}
+
+\begin{definition}{Incentive Compatible}
+  Auctions are \textit{Incentive Compatible} if they encourage bidders to bid their true value for an item. Incentive compatible auctions stop game playing between bidders as there is no advantage to second guess other users' values. This makes \textit{Incentive Compatible} auctions more predictable and thus favourable for auctioneers.
+  \par English \& SPSB auctions are incentive compatible.
+\end{definition}
+
+\begin{remark}{Equivalence of English \& Second-Price Sealed Bid Auctions}
+  English \& SPSB auctions are weakly equivalent as the optimal strategies are only the same if values are \textit{private} (i.e. there is no \textit{interdependence}).
+\end{remark}
+
+\begin{remark}{Strategic Equivalence of Dutch \& First-Price Sealed Bid Auctions}
+  Bidding a certain amount in a FPSB auction is equivalent to offering to buy at that amount in a Dutch auction. Thus they are \textit{Straegically Equivalent} (for all strategies in one game there is a strategy in the other which will produce the same outcome).
+\end{remark}
+
+\begin{theorem}{Revenue Equivalence Theorem}
+  If private values are iid and all bidders are risk neutral, then any standard auction yields the same expected revenue to the seller.
+\end{theorem}
+
+\begin{remark}{Revenue Equivalence Theorem}
+  In practice the \textit{Revenue Equivalence Theorem} does not hold since bidders are not risk neutral (they do have an emotional attachment to goods) and interdependence exists.
+\end{remark}
 
 \end{document}

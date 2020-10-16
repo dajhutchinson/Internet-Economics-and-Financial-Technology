@@ -380,6 +380,10 @@
   \par Auctions are easy to automate and a form of differential pricing.
 \end{remark}
 
+\begin{proposition}{Auctions vs Posted Prices}
+  When a seller chooses to run either an auction or use posted prices, they are choosing whether between \textit{price discovery} and \textit{convenience}. Auctions are often favoured by unexperienced sellers and unique items. Auctions sell for less than a posted price listing (otherwise consumers would pay the posted price listing).
+\end{proposition}
+
 \begin{definition}{Private Value}
   An object's \textit{Private Value} is the value each consumer places on the object. Each bidder knows their private value for an object, but do not know the private value of others nor does knowledge of other bidders' private values affect your private value. This situation is common for consumable goods, less so with investments.
 \end{definition}
@@ -408,6 +412,22 @@
 \begin{definition}{Signalling}
   During an auction a bidder may place a \textit{`weird`} bid which signals their intent for the rest of the auction to other bidders. This is a form of collusion without any prior agreement necessary. (Consider the T-Mobile - Mannesbane auction for parts of the german telephone network).
 \end{definition}
+
+\begin{definition}{Reverse Auction}
+  \textit{Reverse Auctions} are when multiple suppliers bid for a contract with a single consumer. This is commonly used for construction \& suppliment contracts, (inc. by governments).
+  \par Often suppliers must be \textit{qualified} in order to \textit{offer} a price.
+\end{definition}
+
+\begin{definition}{Double Auction}
+  In a \textit{Double Auction} multiple buyers and multiple sellers take part. The sellers offer descending prices, and buyers bid ascending prices. When two prices meet a sale is made between those two parties.
+  \par \textit{Continuous Double Auctions} all buyers and sellers to place bids at any time, and not necessarily in order. This is used in stock exchanges.
+  \par \textit{Double Auctions} are very efficient for price discovery.
+\end{definition}
+
+\begin{proposition}{Trading in the Dark}
+  Sometimes you do not want to give away your private information (e.g. You dont want to list a large stock sale on a public order book as this would affect the stock price).
+  \par \textit{Dark Pools} are designed to keep your trading intensions secret so that it does not impact price. WARNING it is common for dark pool owners to use this information against their users.
+\end{proposition}
 
 \subsection{Open Auctions}
 
@@ -531,6 +551,48 @@
 
 \begin{remark}{Revenue Equivalence Theorem}
   In practice the \textit{Revenue Equivalence Theorem} does not hold since bidders are not risk neutral (they do have an emotional attachment to goods) and interdependence exists.
+\end{remark}
+
+\subsection{Online Auctions}
+
+\begin{remark}{Auctions Online}
+  Due to the algorithmic nature of auction rules \& no need for a physical auctioneer or room, the internet enables auctions to be run quickly and cheaply.
+  \par Bidding can be automated too, and more complex auction rules can be implemented.
+  \par The only limit to online auctions is server capacity and bandwidth.
+\end{remark}
+
+\begin{remark}{Intermediates}
+  In the beginning of the Internet it was believed that small businesses (e.g. farmer) would be able to sell to customers directly, without the need of an intermediary (e.g. supermarket). This has not been realised as it is much harder to get customers attention online. So \textit{Online Marketplaces} (e.g. amazon, ebay) sprung up to act as intermediaries.
+  \par Online marketplaces not host listings but also ease payments and improve trustworthiness of both sellers \& buyers.
+\end{remark}
+
+\begin{remark}{eBay}
+  \textit{eBay} is one of the most famous online auctioneers. Mainly does consumer-to-consumer and business-to-consumer auctions, but also some business-to-business.
+  \par Reviews of sellers act as a lock-in mechanism and part of why \textit{eBay} has an effective monopoly.
+  \par eBay auctions are open-ascending auctions with a deadline set before the auction begins (similar to an english auction, but with a time line).
+\end{remark}
+
+\begin{remark}{Snipping}
+  The timelimit on eBay auctions has lead to phenomena of \textit{snipping}, where bidders wait to place their bid till near the end of an auction in the hope it is too late for anyone else to join (and so as not to give away information about their value).
+  \par eBay don't like this as there is hidden information.
+  \par To combat this eBay introduced a `proxy' bidding functionality (if everyone uses this then it is similar to a SPS auction). Alternatively, they could have extended the time limit each time someone bid (similar to a true english auction)
+\end{remark}
+
+\begin{proposition}{Estimating Demand for Dynamic Pricing in Electronic Markets}
+  \begin{enumerate}
+    \item Track bidders and \textit{`recover`} missing bidders (who could not bid as the price was too high when they first entered). Use this data to estimate a demand curve.
+    \item Build a demand and supply curve.
+    \item Calculate supplier costs and estimate revenues.
+    \item Determine optimal sales quantity/strategy using the revenue and cost curves.
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}{Google Ad Auctions}
+  Google understands their customer very well as they know exactly what they are looking for. Adverts for webpages are highly idiosyncratic and thus hard to compare.
+  \par Google uses auctions on its ad-space in order to perform price discovery. Multiple auctions are done for each user search (~60k auctions per second). Google considers both the \textit{bid price} and the \textit{advert quality} when choosing the winner of an auction, as they don't want their users to get loads of shit adds.
+  \par \textit{Advert quality} is assessed using: Historic click-through-rate; relevancy; and landing page quality (inc. load speed).
+  \par This type of auction works best for the seller when there is lots of competition in the auction. To encourage this Google relax the strictness of their keyword matching.
+  \par Originally, Google used FPSB auctions but this lead to their servers being overloaded with advertisers checking the results of auctions (to see if they could lower their price). Google then switch to SPSB auctions, solving the server overload problem, as this is \textit{incentive compatible}.
 \end{remark}
 
 \end{document}

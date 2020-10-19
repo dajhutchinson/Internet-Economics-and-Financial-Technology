@@ -29,6 +29,10 @@
   Where does IT go next? Has it peaked as IT is almost fully diffused?
 \end{remark}
 
+\begin{remark}{Economics in Computer Science}
+  \textit{Market Economics} is a useful metaphor for new methods in computer science \& engineering which deal with allocation of scare resources. This is field is known as \textit{Market Based Control}. Algorithms in this field tend to model sellers \& buyers, and are applicable across most problems in the field (from server allocation to automated stock traders).
+\end{remark}
+
 \section{Economic Principles}
 
 \begin{definition}{Externality}
@@ -125,6 +129,11 @@
   A market is considered a \textit{Monopoly} if its structure is characterised by a single seller (The \textit{Monopolist}). The \textit{Monopolist} faces no competition and thus can be a price \underline{setter}, rather than price taker. In the real world a firm with over 40\% market share is considered to have a monopoly. Monopoly markets are not competitive.
 \end{definition}
 
+\begin{definition}{Pareto Efficiency}
+  An allocation is \textit{Pareto Efficient} if no-one can be made better-off without someone else being made worse-off. Pareto efficient allocations can arise from free markets, despite traders acting only to serve themselves (the \textit{invisible hand} guides them).
+  \par Free markets are not \textit{guaranteed} to achieve optimal allocations. Some conditions under which this fails are well known (e.g. monopolies).
+\end{definition}
+
 \subsection{Elasticity}
 
 \begin{definition}{Price Elasticity of Demand}
@@ -204,6 +213,61 @@
 
 \begin{proposition}{Bundling}
   \textit{Bundling} is a form of \textit{versioning} where several goods are sold together for a single price. (e.g. microsoft office). Bundling is used to sell customers products they would not otherwise buy. Bundling can create barries to entry for competitor producers as it requires competitors to produce a wider varity of product (e.g. a spreadsheet software \& word processor rather than just one).
+\end{proposition}
+
+\section{Economic Agents}
+
+\begin{remark}{CDA Curves in Practice}
+  The supply and demand curves for continuous-action double auctions are, in reality, stepped. This is due to the relatively few units for sale in the market
+\end{remark}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.3\textwidth]{quotedPrices.PNG}
+  \caption{The arrows show the displacement from an agents hidden price and their quoted price}
+\end{figure}
+
+\begin{proposition}{No-one Trades their Marginal Price}
+  In practice sellers do not want to sell at their marginal price, nor do buyers want to buy at their maximum price. To avoid this both are advised to start a little away from these prices. These offered prices are known as \textit{Quote Prices}. Quoted prices have their own \textit{apparent} supply and demand curves which may be very different from the true curves. (See \texttt{Figure 4} ).
+  \par The distance between the apparent and actual curves gives you the margin that agents are trying to achieve in the market. Agents should change their margin to reflect those of other people in the market. You would expect margins to decrease as the time since last transaction increases.
+  \par Traders to the left of the equilibrium price can increase their margins to meet the equilibrium, while those on the right have to decrease.
+\end{proposition}
+
+\begin{proposition}{Dynamic Variation of Supply \& Demand Curves}
+  In reality markets equilibriums are dynamic, as if the buyer and seller closest to the equilibrium perform a transaction they will drop out the market and a new equilibrium will need to be found. Also, new buyers and sellers may join the market. This is obvious in markets with very few units.
+\end{proposition}
+
+\begin{definition}{Experimental Economics}
+  \textit{Experimental Economics} perform lab-style studies of human market-trading behaviours.
+  \begin{itemize}
+    \item A small number of human subjects are split into `buyers' and `sellers'.
+    \item All traders are given a private-value/limit price which they cannot exceed.
+    \item Traders interact within some market mechanism.
+  \end{itemize}
+  \textit{Experimental Economics} has demonstrated rapid equilibration in CDAs with very small number of traders.
+\end{definition}
+
+\subsection{Metrics for Markets}
+
+\begin{definition}{Smith's $\alpha$}
+  \textit{Smith's $\alpha$} is a measure of transaction price variation around the theoretical equilibrium price (as a percentage). Lower is better
+  \[ \alpha:=\frac{100}{P_0}\sqrt{\sum_{t\in T}\frac{(P_t-P_0)^2}{|T|}} \]
+  where $P_0$ is the equilibrium price and $\{P_t\}$ is the set of offered prices.
+\end{definition}
+
+\begin{definition}{Allocative Efficiency}
+  \textit{Allocative Efficiency} is a measure of how effecitve the market is at extracting \textit{`gains through trade'}.
+  \[ 100\times\frac{\text{Total utility earned by all traders}}{\text{Theoretical maximum possible total utility}} \]
+\end{definition}
+
+\begin{definition}{Single Agent Efficiency}
+  \textit{Single Agent Efficiency} measures how well an individual agent performs.
+  \[ 100\times\frac{\text{Profit Earned}}{\text{Expected profit all all trades done at }P_0} \]
+\end{definition}
+
+\begin{proposition}{Intelligence required for an allocative efficient CDA}
+  How much of the allocative efficiency of a CDA is due to the intelligence of the traders> And how much is due to the organisation of the market?
+  \par \textit{Experimental Economics} demonstrated than a zero-intelligence trading agent which quoted random prices (but constrained not to trade at a loss) is surprisingly human-like. Suggesting most of the the intelligence is in the market, not in the traders.
 \end{proposition}
 
 \section{The Economics of The Internet}
@@ -428,6 +492,10 @@
   Sometimes you do not want to give away your private information (e.g. You dont want to list a large stock sale on a public order book as this would affect the stock price).
   \par \textit{Dark Pools} are designed to keep your trading intensions secret so that it does not impact price. WARNING it is common for dark pool owners to use this information against their users.
 \end{proposition}
+
+\begin{definition}{Posted Auction}
+  A \textit{Posted Auction} is one where the seller posts a price and then buyers have an option to buy at that price (and that price alone). This is how most shops work.
+\end{definition}
 
 \subsection{Open Auctions}
 

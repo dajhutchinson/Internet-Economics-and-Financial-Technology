@@ -275,8 +275,109 @@
 
 \begin{proposition}{Intelligence required for an allocative efficient CDA}
   How much of the allocative efficiency of a CDA is due to the intelligence of the traders> And how much is due to the organisation of the market?
-  \par \textit{Experimental Economics} demonstrated than a zero-intelligence trading agent which quoted random prices (but constrained not to trade at a loss) is surprisingly human-like. Suggesting most of the the intelligence is in the market, not in the traders.
+  \par \textit{Experimental Economics} demonstrated (in 1993) than a zero-intelligence trading agent (ZIC) which quoted random prices (but constrained not to trade at a loss) is surprisingly human-like. Suggesting most of the intelligence is in the market, not in the traders.
 \end{proposition}
+
+\subsection{Trading Algorithms}
+
+\begin{proposition}{How ZIC Traders achieve an equilibrium}
+  \par ZI-C \textit{sellers} generate offer prices at random in a range from the lowest seller limit price $S_\text{min}$ and the maximum price allowed in the system $P_\text{max}$. This gives us a probability density function for offer prices which follows the supply curve.
+  \par ZI-C \textit{buyers} generate offer prices at random in a range from the greatest buyer limit price $D_\text{max}$ and the minimum price allowed in the system $P_\text{min}$. This gives us a probability density function for bid prices which follows the demand curve.
+  \par The intersection of these two distributions gives the distribution of prices at which transactions are done. See \texttt{Figure 5}. It is noteworthy that the expected values of these distributions are not equal as it means markets populated by ZIC traders achieve an equilibrium by chance (and will not reach an equilibrium in markets with assymetric supply and demand curves).
+\end{proposition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{ZICTransactions.PNG}
+  \caption{Distributions for offer, bid \& transaction prices for ZIC Traders}
+\end{figure}
+
+\begin{proposition}{ZIP Traders (1997)}
+  \textit{ZI-Plus} (ZIP) Traders are a more advanced form of \textit{Zero-Intelligence Traders}. They still have a limit price which they cannot exceed, but also use machine learning in order to adapt. They have a \textit{profit margin} which is the distance between the price they quote and their limit price, this margin is adjusted by the machine learning over time.
+  \par These have been shown to be much more human-like in CDA, than ZIC traders and achieves an equilibrium in cases where ZIC traders could not.
+\end{proposition}
+
+\begin{proposition}{ZIP Algorithm - Qualitative}
+  The algorithm a ZIP trader uses is as follows.
+  \par Consider a seller with limit price $L$. They will ask for a price $P:=L(1+M)$ where $M$ is some profit margin. If this price is \textit{accepted} then increase $M$; otherwise, decrease $M$.
+  \par Buyers should do the inverse with their value of $M$.
+  \par The amount to change $M$ by is determine by a \textit{learning rule} (e.g. Widrow-Hoff with Momentum).
+\end{proposition}
+
+\begin{proposition}{ZIP Algorithm - Quantitative}
+  Let $\lamba_i$ denote the limit price of trader $i$; $p_i(t)$ denote the quote price of trader $i$ at time $t$; and $\mu_i(t)$ denote the profit margin of trader $i$ at time $t$. Then
+  \[ p_i(t)=\lambda_1(1+\mi_i(t)) \]
+  If $p_i(t)$ is accepted then $\mu_i(t+1)=\mu_i(t)+something$; otherwise; $\mu_i(t+1)=\mu_i(t)-something$ where the value of $something$ is determined by a stochastically determined \textit{Target price} and a learning rule aimed at achieving that price.
+\end{proposition}
+
+\begin{proposition}{ZIP Trader Target Price}
+  The target price $\tau_i$ should be slightly beyond the last quoted price in the market $q(t)$.
+  \[ \tau_i(t)=A_i(t)+q(t)R_i(t) \]
+  where $R_i(\cdot)$ and $A_i(t)$ are stochastic functions for adjusting the last quoted price with $R_i(\cdot)$ being relative and $A_i(t)$ being absolute. These functions are defined by the learning rule.
+\end{proposition}
+
+\begin{definition}{Widrow-Hoff Learning Rule}
+  The \textit{Widrow-Hoff} learning rule adjusts an observed value $A$ towards a desired value $D$, at rate $\beta$. The rule is defined as
+  \[ A(t+1)=A(t)+\Delta(t)\quad\text{where}\quad\Delta_i=\beta\big(D(t)-A(t)\big) \]
+  For ZIP a damping (momentum) factor $\gamma\in[0,1]$ is introduced
+  \[ A(t+1)=\gamma A(t)+\Delta_i(t)(1-\gamma)\quad\text{where}\quad\Delta(t):=\beta\big(D(t)-A(t)\big) \]
+  In the context of ZIP this is defined as
+  \[ \mu_i(t+1)=\frac1{\lambda_i}(p_i(t)+\Delta_i(t))-1\quad\text{where}\quad\Delta_i(t):=\beta_i\big(\tau_i(t)-p_i(t)\big) \]
+  Giving
+  \[ \mu_i(t+1)=\frac1{\lambda_i}\big(p_i(t)+\Gamma_i(t)\big)-1\quad\text{where}\quad\Gamma_i(0):=0;\ \Gamma_i(t+1):=\gamma_i\Gamma_i(t)+\Delta_i(t)\big(1-\gamma_i\big) \]
+\end{definition}
+
+\begin{proposition}{Todd Kaplan's Sniper (1993)}
+  Kaplan's \textit{Sniper Algorithm} is a robust and effective trading algorithm.
+  \par The trader does nothing until the bid-offer spread drops to a sufficiently small value \underline{or} the offer is less than the smallest transaction price in the previous period \underline{or} there is only a short time until the market closes. When one of these conditions is fulfilled the trader jumps in, as long as the deal makes the sniper a profit greater than some threshold, and \textit{"snipes the deal"}.
+  \par Note that this algorithm does adapt to the market, nor does it help prices converge to an equilibrium. Moreover, it relies on there being other ``more'' intelligent traders in the market for it to leech off.
+\end{proposition}
+
+\begin{proposition}{GD Traders (1998)}
+  \textit{Gjerstad-Dickhaut} (GD) Traders using an algorithm which is based on producing a estimate of the probability of a certain price being accepted. This is defined by the trader's \textit{belief function} which uses data from the $n$ most recent market activity.
+  \[ f(p)=\frac{able(p)+ole(p)}{able(p)+ole(p)+rgbe(p)} \]
+  where $p$ is the price being queried, $able(p)$ is the number of accepted bids at prices less than $p$ in the last $n$; $ole(p)$ is the number of offers made below $p$ in the last $n$; and, $rgbe(p)$ is the number of rejected bids priced above $p$, in the last $n$.
+\end{proposition}
+
+\begin{proposition}{MGD Traders (2001)}
+  MGD is a \textit{Modified} version of \textit{GD} with the follow considerations made:
+  \begin{itemize}
+    \item Use interpolation to smooth the function for prices which have not occurred in the market history.
+    \item Choosing a quote-price which maximises the trader's expected gain (utility gain times probability of acceptance).
+    \item Assign 0 probability for bids lower than previous lowest big, or offers above the previous greatest trade price.
+  \end{itemize}
+\end{proposition}
+
+\begin{proposition}{GDX Traders (2002)}
+  \textit{GDX} is another extension of \textit{GD} which uses real-time \textit{dynamic programming} to formulate agent bidding strategies in a broad class of auctions characterised by sequential bidding and continuous clearing.
+\end{proposition}
+
+\begin{proof}{Adaptive-Aggressive Algorithm (2006)}
+  \textit{AA} Traders uses past history to adjust it's \textit{aggressiveness} (rather than profit margin) over time. \textit{Aggressiveness} quantifies how quickly it changes its pricing in response to market conditions.
+  \par \textit{AA} Traders use an estimate of the current market equilibrium price $P_0$ (using past transactions) and \textit{Smith's $\alpha$} estimate of volatility to determine its level of aggression.
+\end{proof}
+
+\begin{proposition}{Deciding which algorithm to use}
+  An analytical (game-theoretical) approach to choosing which trading algorithm is optimal is very hard and sometimes impossible. Some proofs require over simplifying assumptions which limit the end conclusion.
+  \par Instead \textit{empirical studies} (simulation experiments) are used. This requires good \textit{"Design of Experiments"} and appropriate statistical analysis of results.
+\end{proposition}
+
+\begin{proposition}{Design of Experiments}
+  \begin{itemize}
+    \item \textit{Homogeneous Population Tests} assumes that all traders use the same algorithm. This is true in some cases (such as market-based resource allocation) but not many. This means only limited conclusions can be made.
+    \item \textit{One-in-Many Test} have all but one member of a trading population using the same algorithm. This explores the vulnerability of the dominant algorithm, and the ability of the alternative algorithm to exploit the market. IRL, if the alternative algorithm was better you would expect some other traders to defect.
+    \item \textit{Balanced-Group Test} have groups of equal size, each running a different algorithm but with matched limit prices. This is generally seen as the best test for comparing two different algorithms.
+  \end{itemize}
+  Simplex plots can be used to show the relationship between different ratio of traders.
+\end{proposition}
+
+\begin{remark}{The Best Algorithm}
+  \begin{itemize}
+    \item Balanced-Group Tests showed MGD to be superior to ZIC,ZIP \& GD in all cases.
+    \item Balanced-Group Tests AA was shown to out perform GDX \& ZIP, in most cases. (Importantly AA is not dominant)
+  \end{itemize}
+  There are likely to be unpublished algorithms which out perform these.
+\end{remark}
 
 \section{The Economics of The Internet}
 

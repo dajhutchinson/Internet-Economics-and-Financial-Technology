@@ -842,4 +842,72 @@
   India uses a \textit{Devlopment-Lagged} approach where regulators largely restrict financial technologies until it it well understood.
 \end{remark}
 
+\section{Bristol Stock Exchange}
+
+\begin{remark}{BSE}
+  The \textit{Bristol Stock Exchange} is an open-source piece of software which simulates a stock exchange.
+\end{remark}
+
+\begin{remark}{Visualisation}
+  There are several ways to visualise prices in a stock market.
+  \begin{itemize}
+    \item Plot the supply and demand curves for current orders. This lines will be stepped.
+    \item Plot a \textit{lollypop graph} which is a ``bar'' chart of price against quantity, with bid \& ask orders distinguished by different colours.
+  \end{itemize}
+\end{remark}
+
+\begin{definition}{Bid-Offer Spread}
+  The \textit{Bid-Offer Spread} is the absolute difference in value between the highest bid price and the lowest ask price.
+  \[ P_\text{min ask}-P_\text{max bid} \]
+\end{definition}
+
+\begin{definition}{Midprice}
+  The \textit{Midprice} is the midpoint (arithmetic mean) between the highest bid price and the lowest ask price. The \textit{Midprice} is an estimate of the market equilibrium price.
+  \[ \frac{P_\text{min ask}+P_\text{max bid}}2 \]
+  \par The \textit{Midprice} does not consider the quantities available at these prices, meaning a single stray bid can alter the \textit{midprice} dramatically.
+\end{definition}
+
+\begin{definition}{Microprice}
+  The \textit{Microprice} is the mean value of the highest bid price and the lowest ask price, each \underline{weighted} by the quantity of the other class of stocks available at that price.
+  \[ \frac{Q(P_\text{max bid})\cdot P_\text{min ask}+Q(P_\text{min ask})\cdot P_\text{max bid}}{Q(P_\text{max bid})+Q(P_\text{min ask})} \]
+  where $Q(P_c)$ is the number of shares of class $c$ (bid or ask) available at price $P$.
+\end{definition}
+
+\begin{definition}{Depth}
+  The \textit{Price Depth} for a specific stock is the number of price levels available.
+  \par \textit{Volume Depth} is the total quantity of a specific stock available.
+\end{definition}
+
+\begin{proposition}{Order Types}
+  The Bristol Stock Exchange only allows for \textit{Limit Orders} \& \textit{Market Orders}.
+  \par There are several other order types which are common at other markets
+  \begin{itemize}
+    \item[GFD] \textit{Good For Day}. Limit order which expires at the end of the trading session/day.
+    \item[FOK] \textit{Fill or Kill}. Only executes if it can be immediately filled in full.
+    \item[AON] \textit{All Or Nothing}. Only executes if it can be filled in full, does not need to be immediate.
+    \item[IOC] \textit{Immediate or Cancel}. Must be filled immediately, but not necessarily in full.
+    \item[ICE] \textit{Iceberg}. Slice a big order into small chunks, each executed sequentially.
+    \item[LOO] \textit{Limit On Open}. Limit order added as a market opens.
+    \item[LOC] \textit{Limit On Close}. Limit order added as a market closes.
+    \item[MOO] \textit{Market On Open}. Market order added as a market opens.
+    \item[MOC] \textit{Market On CLose}. Market order added as a market closes.
+    \item[OCO] \textit{One-Cancels-Other}. A pair of orders, once one is executed the other is cancelled.
+    \item[OSO] \textit{One-Sends-Other}. A pair of orders, once the first is executed the second is sent.
+  \end{itemize}
+\end{proposition}
+
+\begin{definition}{LSE - Turquoise Plato}
+  Some exchanges offer sub-exchanges. \textit{Turquoise Plato} is a sub-exchange of the London Stock Exchange. The key features of \textit{Turquoise Plato} are
+  \begin{itemize}
+    \item It is a \textit{dark pool}, which does not publish a Limit-order book.
+    \item Orders need to be above a certain size in order to be routed to the dark pool.
+    \item Orders in the dark pool are processed in size priority.
+    \item Transactions happening in either the lit or dark pool are published upon completion.
+    \item Larger orders are allowed to specify a minimum execution size.
+    \item Orders have a duration.
+    \item Allows for \textit{Block-indication} orders, followed by \textit{Order Submission Request} (OSR), followed by the actual \textit{Qualifying Block Order} (QBO). This is known as the \textit{Block Discovery Process}.
+    \item Reputation of traders is tracked. If a trader follows a BI order with appropriate QBOs then their reputation goes up. Otherwise it goes down. If their reputation falls too low, the trader is excluded from the block discovery process.
+  \end{itemize}
+\end{definition}
+
 \end{document}

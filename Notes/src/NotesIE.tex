@@ -225,6 +225,10 @@
 
 \section{Economic Agents}
 
+\begin{definition}{Bull \& Bear}
+  An asset is described as \textit{Bullish} if its value is expected to \underline{increase}; Or, \textit{Bearish} if its value is expected to \underline{decrease}.
+\end{definition}
+
 \begin{remark}{CDA Curves in Practice}
   The supply and demand curves for continuous-action double auctions are, in reality, stepped. This is due to the relatively few units for sale in the market
 \end{remark}
@@ -378,6 +382,248 @@
   \end{itemize}
   There are likely to be unpublished algorithms which out perform these.
 \end{remark}
+
+\subsection{Empirical Methods}
+
+\begin{remark}{When to use a $t$-Test}
+  A \textit{$t$-Test} can only be used when it is safe to assume that the underlying distribution is a normal distribution. There are tests of normality to check this.
+\end{remark}
+
+\begin{proposition}{$A-B$ Test}
+  Here I describe a test to determine whether some method $A$ is better than some method $B$.
+  \begin{itemize}
+    \item Calculate the confidence interval on mean of samples from $A$.
+    \item Calculate the confidence interval on mean of samples from $B$.
+    \item If the intervals do not overlap then we can determine that one method is better than the other.
+  \end{itemize}
+\end{proposition}
+
+\begin{definition}{Wilcoxon-Mann-Whitney U Test}
+  The \textit{Wilcoxon-Mann-Whitney U Test} is a powerful test for two independent samples on a continuous dependent variable. It is a \textit{non-parameteric} version of the $t$-test. This test makes some assumptions, see \texttt{Proposition }
+  \par Let $A$ be a sample of size $n_A$ and $B$ be a sample of $n_B$, with $n_A>n_B$.
+  \begin{center}$H_0$: $A$ and $B$ come from the same population.\\$H_1$: $A$ and $B$ come from \textit{different} populations\end{center}
+  \begin{enumerate}
+    \item Combine $A$ and $B$ into one list and sort it (keeping track of which data point is from which sample).
+    \item Rank the list from lowest to highest. Awarding average rank when ties occur.
+    \item Sum the ranks for $A$ and $B$ to get $R_A,R_B$.
+    \item Compute $U_B:=n_An_B+\frac12n_A(n_A+1)-R_A$ and $U_B:=n_An_B+\frac12n_B(n_B+1)-R_B$.
+    \item Define $U:=\min\{U_A,U_B\}$.
+    \item Compare $U$ to the critical value from $U_{n_A,n_B,\alpha}$ from a lookup table.
+    \item If $U<U_{n_A,n_B,\alpha}$ then reject $H_0$.
+  \end{enumerate}
+  The \textit{U-Test} is a pairwise test, but it is bad to performance a series of these tests as the error grows quickly. (ie If you are testing at a siginifance level of $95\%$, the probability of being correct after four tests is $.95^4=.814...$)
+\end{definition}
+
+\begin{proposition}{Assumptions of U Test}
+  \begin{itemize}
+    \item The Independent variable data is in two groups (Control and Treatment).
+    \item The dependent variable is at least in an ordinal scale.
+    \item Data is randomly selected samples from the two groups
+    \item The population distributions of the dependent variable for the two groups have a similar shape, but have differences in measures of central tendency.
+  \end{itemize}
+\end{proposition}
+
+\begin{definition}{Kruskal-Wallis Test}
+  The \textit{Kruskal-Wallis Test} is a generalisation of the \textit{U Test}, extending it to allow multiple group comparisions.
+  \par Consider samples $A,B,C,D$
+  \begin{enumerate}
+    \item Calculate the mean ranking for each group's entries in the sorted union list. (As in U Test)
+    \itme Compute a statistic H form the mean rank and the sample size $n$.
+    \item Use a $\chi^2$-test to determine whether $H$ is significant.
+  \end{enumerate}
+\end{definition}
+
+\subsection{Options Markets}
+
+\begin{definition}{Short Selling}
+  To \textit{Short} a stock, is when you borrow a stock from someone else and sell the borrowed stock immediately. You will then need to buy a stock at some point in the future to return to the original lender, ideally for less than you sold the borrow stock for.
+  \par \textit{Shorting} can be used as insurance against other market events.
+\end{definition}
+
+\begin{definition}{Derivative}
+  A \textit{Derivative} contract is based on the \textit{marginal change} in value of an asset. They do not require you to buy/own an actual stock, rather you work on the \textit{margin} of the stock. There are different types of \textit{Derivative}
+  \begin{itemize}
+    \item A \textit{Futures} contract is one which \underline{must} be executed by/on a set \textit{delivery} date. A \textit{Forward price} is defined when the contract is issued, and this is the price the final transaction will occur at. Common for selling crop yields.
+    \par Buyers of a forward have the \textit{long position} and sellers have the \textit{short position}.
+    \item An \textit{Options} contract is one which \underline{may} be executed by/on a set \textit{delivery} date. There is no obligation. \textit{Options} have a \textit{Strike price} which is the price which the transaction will be done at, if a transaction is done at all.
+    \par Options to sell are called \textit{puts} and options to buy are \textit{calls}.
+  \end{itemize}
+  The option is said to be \textit{written} by the seller and \textit{held} by the buyer.
+\end{definition}
+
+\begin{remark}{Futures and Options}
+  Both futures and options are
+  \begin{itemize}
+    \item \textit{Standardised}. The size of the contract and the delivery/expiry date are prespecified.
+    \item \textit{Exchange Traded}. The contracts can be bought and sold on a secondary market. This is required so that those who do not have enough money to actually exercise the full value of their option can still realise the option's value, by selling to someone who can afford to exercise the option.
+  \end{itemize}
+\end{remark}
+
+\begin{remark}{Price of an Option}
+  The price of an option depends on the
+  \begin{itemize}
+    \item \textit{Intrinsic Value}. The money received if the option is exercised now.
+    \item \textit{Volatility Premium}. The volatility in price of the underlying asset.
+    \item \textit{Time Value}. The potential risk-free return on money saved wrt buying the underlying asset. (ie what you could received if the money was placed in a safe investment, rather than the option)
+  \end{itemize}
+\end{remark}
+
+\begin{definition}{American-Style \& European-Style}
+  An \textit{American-Style} option can be exercised on any date up to the expiry date.
+  \par A \textit{European-Style} option can \underline{only} be exercised on its expiry date.
+\end{definition}
+
+\begin{definition}{Call Option}
+  A \textit{Call option} gives the holder the right to buy $N$ units of the underlying asset, at some point in the future, at a specified \textit{Strike Price}. If exercised the option-write (Seller) must sell the $N$ shares at the strike price.
+  \par The \textit{Call Option} is \textit{In The Money} (ITM) if the underlying asset price is greater than the strike price; \textit{Out The Money} (OTM) if the underlying price is less than the strike price; Or, \textit{At The Money} if the underlying price equals the strike price.
+\end{definition}
+
+\begin{definition}{Put Option}
+  A \textit{Put Option} gives the hold the right to sell $N$ units of the underlying asset, at some point in the future, at a specified \textit{Strike Price}. If exercised the option-writer (Seller) must buy the $N$ shares at the strike price.
+  \par The \textit{Call Option} is \textit{In The Money} (ITM) if the underlying asset price is less than the strike price; \textit{Out The Money} (OTM) if the underlying price is greater than the strike price; Or, \textit{At The Money} if the underlying price equals the strike price.
+\end{definition}
+
+\begin{remark}{Commissions are paid on setting up option contracts.}
+
+\end{remark}
+
+\subsubsection{Option Strategies}
+
+\begin{proposition}{Option Strategies}
+  \textit{Option Strategies} are linear combinations of options:
+  \begin{itemize}
+    \item Long call
+    \item Short call
+    \item Long put
+    \item Short put
+  \end{itemize}
+\end{proposition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{options.PNG}
+  \caption{Different Basic Option Pay Off Diagrams}
+\end{figure}
+
+\begin{definition}{Bull Spread}
+  A \textit{Bull Spread} is an option strategy which bounds the pay off to a constant, this limits the risk by placing a cap on potential losses. A \textit{Bull Spred} is made up of a \textit{Long call at $K_1$} and a \textit{Short Call at $K_2$} (Bullish Call Spread); or the same but with \textit{put} options (Bullish Put Spread). In practice the losses are limited to the $K_2$ price as if the underlying price was to exceed $K_2$ then you would exercise the short option.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{bullSpread.PNG}
+  \caption{Bull Spread Pay off Diagram}
+\end{figure}
+
+\begin{definition}{Bear Spread}
+  A \textit{Bear Spread} is an option strategy which bounds the pay off to a constant, this limits the risk by placing a cap on potential losses. A \textit{Bear Spred} is made up of a \textit{short put at $K_1$} and a \textit{long put at $K_2$} (Bearish Put Spread); or the same but with \textit{call} options (Bearish Call Spread). In practice the losses are limited to the $K_2$ price as if the underlying price was to fall below $K_2$ then you would exercise the long put option.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{bearSpread.PNG}
+  \caption{Bear Spread Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Long Butterfly}
+  A \textit{Long Butterfly} strategy is used when you expect the price not to change much. A \textit{Long Butteryfly} is made up of a \textit{Long Call at $K_1$}, two \textit{Short calls} each at $K_2$, and another \textit{Long Call at $K_3$}
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{longButterfly.PNG}
+  \caption{Long Butterfly Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Short Butterfly}
+  A \textit{Short Buterfly} strategy is used when you expect the price of an asset to change (in either direction) from its current value. A \textit{Short Butterfly} is made up of: a \textit{Short Call at $K_1$}, two \textit{Long Calls} each at $K_2$ and another \textit{Short Call} at $K_3$.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{shortButterfly.PNG}
+  \caption{Short Butterfly Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Long Straddle}
+  A \textit{Long Straddle} strategy has an unbounded payoff, provided the value of the asset moves from its original value (Essentially an unbounded Long Butterfly). A \textit{Long Straddle} is comprised of a \textit{Long Call at $K_1$} and a \textit{Long Put at $K_1$}.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{longStraddle.PNG}
+  \caption{Long Straddle   Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Short Straddle}
+  A \textit{Short Straddle} strategy has an unbounded payoff, provided the value of the asset does not move from its original value (Essentially an unbounded Short Butterfly). A \textit{Short Straddle} is comprised of a \textit{Short Call at $K_1$} and a \textit{Short Put at $K_1$}.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{shortStraddle.PNG}
+  \caption{Short  Straddle Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Long Strangle}
+  A \textit{Long Strangle} strategy pays out provided the underlying asset values moves at least some specified amount from its original value (Essentially a long straddle which doesn't just meet at a point). A \textit{Long Strangle} is made up of a \textit{Long Put at $K_1$} and a \textit{Long Call at $K_2$}.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{longStrangle.PNG}
+  \caption{Long Strangle  Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Ratio Call Spread}
+  A \textit{Ratio Call Spread} is similar to a long butterfly, but is unbounded in terms of losses should the underlying value keep increasing. A \textit{Ratio Call Spread} requires three options (One less than a \textit{Long Butterfly} so is cheaper): A \textit{Long Call at $K_1$} and two short calls, both at $K_2$.
+  \par A \textit{Ratio Call Spread} is used when you are confident $U$ will rise to $K_2$, but no go beyond that.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{ratioCallSpread.PNG}
+  \caption{Ratio Call Spread Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Ratio Put Spread}
+  A \textit{Ratio Put Spread} is similar to a long butterfly, but is unbounded in terms of losses should the underlying value keep decreasing. A \textit{Ratio Put Spread} requires three options (One less than a \textit{Long Butterfly} so is cheaper):  Two \textit{Short Puts at $K_1$} and a long put at $K_2$.
+  \par A \textit{Ratio Put Spread} is used when you are confident $U$ will fall to $K_1$, but no go beyond that.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{ratioPutSpread.PNG}
+  \caption{Ratio Put Spread Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Ratio Call Backspread}
+  A \textit{Ratio Call Backspread} is similar to a short butterfly, but is unbounded in terms of gains should the underlying value keep increasing. A \textit{Ratio Call Backspread} requires three options (One less than a \textit{Long Butterfly} so is cheaper):  A \textit{Short Call at $K_1$} and two \textit{Long Calls at $K_2$}.
+  \par A \textit{Ratio Put Backspread} is used when you are confident $U$ will shift significantly, with an increase more likely.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{ratioCallBackspread.PNG}
+  \caption{Ratio Call Backspread Pay Off Diagram}
+\end{figure}
+
+\begin{definition}{Ratio Put Backspread}
+  A \textit{Ratio Put Backspread} is similar to a short butterfly, but is unbounded in terms of gains should the underlying value keep decreasing. A \textit{Ratio Put Backspread} requires three options (One less than a \textit{Long Butterfly} so is cheaper):  A \textit{Short Put at $K_1$} and two \textit{Long Put at $K_2$}.
+  \par A \textit{Ratio Call Backspread} is used when you are confident $U$ will shift significantly, with an decrease more likely.
+\end{definition}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.5\textwidth]{ratioPutBackspread.PNG}
+  \caption{Ratio Put Backspread Pay Off Diagram}
+\end{figure}
+
+% \subsection{Betting Exchanges}
+
+\begin{proposition}{Betting Exchanges}
+  \textit{Betting Exchanges} are similar to \textit{Options Markets} as they allow people who have differing views over some future outcome to wager on it. \textit{Betfair} offer a LOB style way to place bets by allowing users to \textit{"back"} (will happen) an event or \textit{"lay"} (will not happen) an event.
+\end{proposition}
 
 \section{The Economics of The Internet}
 
@@ -544,6 +790,30 @@
 \begin{proposition}{Freemium Model}
   The \textit{'Freemium'} business model is to offer different versions at different prices, \textit{including a free one}. The hope is a consumer will \textit{upgrade} to a paid version because they like the service.
 \end{proposition}
+
+\subsection{Economics of Computer Games}
+
+\begin{proposition}{Virtual Game Economies}
+  Virtual game economies are generally stimulated by players collecting raw materials and then producing goods which they sell between themselves, very much like an IRL economy.
+  \par Virtual economies have many of the same issues as real economies. For a stable economy, a balance must be struck between currency sources (money entering) and skins (money leaving). If there is an imbalance then \textit{MUDflation} can occur (Multi-User-Dungeon inflation?). Designing these stable economies (for MMORPGs) is hard.
+  \par Economic stability is important otherwise games can lose credibility. There are examples where players have developed \textit{meta currencies} which are more stable to improve a games longevity.
+\end{proposition}
+
+\begin{remark}{IRL Game Economies}
+  There are real-world markets when players sell their in game items for IRL money. Essentially this a ForEX market.
+\end{remark}
+
+\begin{remark}{Gold Farming}
+  As the value IRL market for a game's assets reaches it has been observed that people in developing nations will choose to grid the game (gold farm) in order to obtain items to then sell in an IRL market, rather than work a traditional job. This market is between the cash rich-time poor (americans) and cash poor-time rich (mexicans? sorry).
+  \par This typically against a games EULA, but it is hard to game makers to counter.
+\end{remark}
+
+\begin{remark}{Game Development Budgets}
+  The number of people involved in making a game and the number of lines in a typical AAA game has grown exponentially, tracking the powerfulness of computers.
+  \par However, the \textit{average} game budge has decreased as many games as small titles made on tight budgets or as passion projects.
+  \par Mid-size studios with projects budgets in the low millions are rare. This is typically due to either them being absorbed by bigger studios; or the mid-size studio breaks up into smaller teams.
+  \par The rise in \textit{Content Costs} has increased due the number of many hours required to complete tasks and jobs have become much more specialised. Additional, game-developers now demand higher wages. Note that this is useful for big studios as they act as a barrier to entry.
+\end{remark}
 
 \section{Auction Theory}
 

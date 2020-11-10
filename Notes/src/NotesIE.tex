@@ -1180,4 +1180,256 @@
   \end{itemize}
 \end{definition}
 
+\section{Sentiment Analysis}
+
+\subsection{Theory}
+
+\begin{definition}{Sentiment}
+  \textit{Sentiment} is an individuals attitude or option towards something (i.e. How much they like or dislike it).
+  \par Typically \textit{Sentiment} is measured using a \textit{Polarity Value} between $-1$ (hate) and $1$ (love).
+\end{definition}
+
+\begin{proposition}{Importance of Sentiment}
+  Everyone has an option and can easily share it on the internet (e.g. tweets \& reviews). These opinions can have significant economic effects and be drivers for social change.
+  \par The CMA estimated $\£23.3bn$ of uk consumer spending was influence by online review (many in travel and tourism).
+\end{proposition}
+
+\begin{proposition}{Yelp Reviews \& Restaurants}
+  The reviews a restaurant receives can seriously affect its business
+  \begin{itemize}
+    \item A one-star increase on Yelp leads to an $\approx5\%-9\%$ increase in revenue.
+    \item The effect is only really seen by independent restaurants (not chains).
+    \item Market share of chain restaurants have decreased, likely due to Yelp helping independent restaurants penetrate the market.
+    \item Consumer response was mainly affected by the number of ratings and the average rating. Some highly rated reviewers have greater swing power.
+  \end{itemize}
+\end{proposition}
+
+\begin{remark}{Sentiment and Government Policy}
+  The sentiment of the general public to topics (such as gay rights) are driving factors towards change in government policy.
+\end{remark}
+
+\begin{proposition}{Collecting Public Opinion}
+  There are a few ways to collect data on public opinion
+  \begin{itemize}
+    \item[\textit{Traditional}] Focus groups, customer surveys, opinion polls. These are expensive and time consuming.
+    \item[\textit{Sentiment Analysis}] Analyse public opinion from online postings. This is hard.
+  \end{itemize}
+\end{proposition}
+
+\begin{definition}{Sentiment Analysis}
+  \textit{Sentitment Analysis} is the process of \underline{computationally} identifying and categorising opinions expressed in a piece of text. Particularly, to determine whether the author's attitude towards a particular topic is positive, negative, or neutral.
+\end{definition}
+
+\begin{definition}{Topic Modelling}
+  \textit{Topic Modelling} is the practice of \underline{computationally} identifying the topic of a document through text classification.
+\end{definition}
+
+\begin{remark}{Topic Modelling v Sentiment Analysis}
+  \textit{Topic Modelling} is typically much easier than \textit{Sentiment Analysis} as it can be done by identifying keywords. \textit{Sentiment Analysis} is much more subtle as there may not be words which are explicitly positive or negative.
+\end{remark}
+
+\begin{proposition}{Levels of Sentiment Analysis}
+  \begin{itemize}
+    \item[\textit{Document-Level}] For a given document, identify the overall attitude to the object under discussion.
+    \item[\textit{Sentence-Level}] For a given sentence, identify if it expresses a positive, negative, or neutral option.
+    \item[\textit{Aspect-Level}] For a given document, identify all opinions expressed about a particular aspect of a topic.
+  \end{itemize}
+\end{proposition}
+
+\begin{proposition}{Document-Level Sentiment Analysis - Supervised ML}
+  Supervised Machine Learning requires labelled training data. There are some good sources of labelled training data online as many review sites allow authors to give an overall rating to their review (e.g. star rating).
+  \par A common approach to sentiment analysis in SML is the \textit{bag of words} approach, which just considers the frequency of words in a sentence (ignoring context). Traditional machine learning techniques (e.g. Na\"ive Bayes \& Support Vector Machine) can be applied to the \textit{bag of words}.
+\end{proposition}
+
+\begin{proposition}{Document-Level Sentiment Analysis - Unsupervised ML}
+  Unsupervised Machine Learning does not required labelled training data.
+  \par An approach to sentiment analysis in UML is to consider the relationship between words (how often they co-occur). Classification is then based on \textit{Semantic Orientation}, calculated from mutual information between given phrases in the review and words with explicit sentiment (e.g. excellent or poor).
+  \begin{enumerate}
+    \item Extract phrases (consecutive words) where the first word is an adjective (the sentiment) and the second is a noun (the context).
+    \item Calculate \textit{Pointwise Mutual Information} (PMI) for each of words. PMI determines how strongly words are semantically associated.
+    \item Calculate \textit{Semantic Orientation} (SO) for each phrase $PMI_p-PMI_n$ where $PMI_p$ is the \textit{PMI} of the phrase wrt some strictly positive word (e.g. excellent) and $PMI_n$ is the \textit{PMI} of the phrase wrt some strictly negative word (e.g. poor).
+    \item \textit{SO} is estimated by querying a search engine and noting the number of hits where the phrase is near (within 10 words) to the reference word (excellent or poor).
+    \item Calculate the average SO of the document. If the average is positive then the document is likely positive (and visa-versa).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Aspect-Level Sentiment Analysis}
+  A document may contain multiple expression of sentiment regarding different aspects of multiple topic. It is hard to determine which object is being referred to, especially when phrases refer to multiple aspects or topics.
+  \par For each phrase there are 5 features which need to be determined
+  \begin{enumerate}
+    \item The object of the topic.
+    \item The aspect of the topic begin discussed.
+    \item The sentiment towards the aspect.
+    \item Who is expressing this sentiment.
+    \item When the sentiment was expressed.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Aspect-Level Sentiment Analysis - Algorithm}
+  \begin{enumerate}
+    \item Mark sentiment words and phrases using a lexicon. (i.e. Assign +1 to positive words and -1 to negative).
+    \item Identify sentiment shifters (e.g. not, never, cannot) and flip the sentiment value for the words which are shifted.
+    \item Identify \textit{"but"} phrases: If the sentiment to one side of the phrase cannot be identified, then it can be considered the opposite of the other side.
+    \item Sum the sentiment scores, weighted by the distance a word is from the aspect word.
+    \item If the weighted sum is positive then the sentiment to the aspect is positive.
+  \end{enumerate}
+\end{proposition}
+
+\subsection{Practice}
+
+\begin{proposition}{Twitter Sentiment}
+  There have been successful demonstrations of using sentiment analysis on public tweets to determine outcome of events. Including
+  \begin{itemize}
+    \item Predicting box office revenues for a movie by consider the number of tweets about a move, per hour, in the week prior to release.
+    \item Predicting the election results. (Although there have been notable failures when trying to replicate).
+    \item Stock market movements using the mood of tweets. Tweets were assigned one of six moods: Calm, alert, sure, vital, kind and happy. The topic of the tweets was ignored but the mood across all tweets was used to predict the directional movement of indexed stocks (e.g. S\&P500, FTSE100). (Again there have been failures to replicate)
+  \end{itemize}
+\end{proposition}
+
+\begin{remark}{Correlation is not Causation.}
+
+\end{remark}
+
+\begin{proposition}{Gaming The System}
+  As it has been shown that online sentiment has affect on business, some people have tried to game the system by artificially inflating the online sentiment about their business in order to stimulate sales.
+\end{proposition}
+
+\begin{definition}{Brushing}
+  \textit{Brushing} is a scam which is popular on amazon where sellers try to get lots of positive reviews.
+  \par The general process is
+  \begin{enumerate}
+    \item The amazon sellers gets the name and address of a customer.
+    \item The seller ``purchases'' an item from their own range and sends it to the customer, stating it is a gift.
+    \item Amazon allows individuals who purchase a gift to leave a review for that item, so the seller leaves a very positive review for their own item.
+    \item The review is listed as a ``verified buyer'' on Amazon. Thus giving it greater authority.
+    \item This artificially inflates the rating of the item and boosts is search ranking.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}{Fake Reviews}
+  \begin{itemize}
+    \item Yelp states if filters out $25\%$ of  all posted reviews as they suspected of being fake.
+    \item Samsumg was fined for paying people to leave positive reviews for their products and to criticise HTC products.
+  \end{itemize}
+\end{remark}
+
+\begin{definition}{Sockpuppetry}
+  A \textit{Sockpuppet} is an online identity used for purposes of deception. The \textit{Sockpuppet} poses as an independent third-party who is unaffiliate with actual account operator. The \textit{Sockpuppet} account is then used to praise, defend or support the actual account operator and thus manipulate public opinion.
+  \par \textit{Sockpuppetry} works as people default to crowd opinion. There are several types of \textit{Sockpuppetry} practices
+  \begin{itemize}
+    \item \textit{Ballot Stuffing} were multiple votes are submitted in online polls to favour the puppeteer.
+    \item \textit{Sybil Attack} where multiple false identities are used to create influence within a peer-to-peer online network.
+    \item \textit{Stealth Marketing} where multiple sockpuppets, each claim to be enthusiastic supporters of a product/service.
+    \item \textit{Starman Sockpuppet} where sockpuppets are used to make a particular point of view look foolish in order to generate negative sentiment; or, for the puppeteer to easily refute.
+    \item \textit{Astroturfing} using sockpuppets to make it appear that a particular message is coming from a grassroot support, rather than from a large company.
+  \end{itemize}
+  \textit{Persona Mangement Software} help manage sockpuppets by
+  \begin{itemize}
+    \item Creaing diverse \& plausible online personas with static IP addresses.
+    \item Allowing puppeteers to randomly select different personas each day.
+    \item Blend traffic in with users from outside the organisation to provide cover \& plausible-deniability.
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}{Sockpuppet detection}
+  An approach to detecting sockpuppets is to create a network which links online personas based on each time they express a similar view. Identify clusters within this network. Analyse the writing styles within the clusters, with those that match likely to be sockpuppets.
+  \par Common trends of sockpuppets is
+  \begin{itemize}
+    \item Similar IP addresses.
+    \item Similar online names.
+    \item Similar registration times.
+    \item Similar login patterns.
+  \end{itemize}
+\end{proposition}
+
+\begin{proposition}{Likely Fakes}
+  The following are cases where a review is likely to be fake
+  \begin{itemize}
+    \item It is a duplicate review. Further
+    \begin{itemize}
+      \item Negative outlier reviews are more commonly spammed, than positive outliers.
+      \item Singleton reviews are often fake.
+      \item Top-ranked reviewers are more likely to post fake reviews.
+    \end{itemize}
+    \item Identify atypical behaviours. E.g.
+    \begin{itemize}
+      \item Promoting or victimising a few target products.
+      \item Targeting a group of products in a short period of time.
+      \item Tending to give polarised scores.
+      \item Given ratings which deviate from those of other reviews of the same product.
+    \end{itemize}
+  \end{itemize}
+\end{proposition}
+
+\section{The Crowd Economy }
+
+\begin{definition}{The Crowd Economy}
+  \textit{The Crowd Economy} is the group of platforms which rely on active participation from large crowds of people online. (e.g. wikipedia \& AirBnB).
+\end{definition}
+
+\begin{definition}{Crowdsourcing}
+  \textit{Crowdsourcing} uses crowds for to reach certain (non-monetary) goals
+  \begin{itemize}
+    \item Citizen engagement.
+    \item Mass Collaboration.
+    \item Crowd tasks.
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}{When to use Crowdsourcing}
+  \textit{Crowdsourcing} is good when a task is difficult for a computer to perform: such as labelling images.
+\end{proposition}
+
+\begin{proposition}{Crowdsourcing - Finding Participants}
+  There are a few ways to get people to partake in crowdsourcing tasks
+  \begin{itemize}
+    \item Pay them.
+    \item Trick them into doing it, generally as a side effect of something they want to do (e.g. CAPTCHA).
+    \item Motivate volunteers. Generally by making it worthwhile/fun.
+  \end{itemize}
+\end{proposition}
+
+\begin{definition}{Crowdfunding}
+  \textit{Crowdfunding} uses crowds to raise money. This can take several forms
+  \begin{itemize}
+    \item Donation Based.
+    \item Reward Based. Funders receive a reward based on how much they pledge (typically the product the company will product).
+    \item Equity Based. Funders become share holders.
+    \item Debt Based. (Peer-to-Peer Lending). Cheap loans relative to traditional banks. Risk of debtor defaulting.
+  \end{itemize}
+  In the UK both \textit{Equity Based} and \textit{Debt Based} crowdfunding is regulated by the FCA, in the same way as traditional providers.
+\end{definition}
+
+\begin{definition}{Mechanical Turk}
+  \textit{Mechnaical Turk} is Amazon's crowd-based ``job'' market. Companies can post jobs and then users can choose to complete then for a fee.
+\end{definition}
+
+\section{Prediction Markets}
+
+\begin{definition}{Prediction Markets}
+  \textit{Prediction Markets} use the knowledge of crowds to predict the outcome of some future event which has an uncertain outcome (but it is verifiable after the event whether the prediction was correct).
+  \par These markets require on participants being honest \& unbiased. This is generally done by getting people to ``put their money where their mouth is'' (i.e. pay-to-play).
+\end{definition}
+
+\begin{proposition}{Types of Market}
+  There are two ways a \textit{Prediction Market} can pay out
+  \begin{itemize}
+    \item \textit{Winner-Takes-All} where a fixed value is payout if a particular event happens (e.g. wins an election). Here the sum price of all contracts should equal the fixed value payout.
+    \item \textit{Vote Share} where payout percentage is based on a quantitative outcome (e.g. number of MPs won).
+  \end{itemize}
+\end{proposition}
+
+\begin{example}{Prediction Market}
+  Consider a future event with two possible future outcomes: $X$ and $Y$.\\
+  Suppose we create two futures contracts: one paying if $X$ occurs, and the other if $Y$ occurs (Winner-Takes-All Market). These contracts can be traded and their values with vary over time. The Winner-takes-All market keeps traders honest as they have nothing to gain by choosing an event they believe to be sub-optimal.
+  \par If a CDA is used to trade these contracts then the relative current trade price can be considered as a measure of the collective market's belief of an event occurring.
+  \par Since traders want to make a profit, traders should buy a contract that they believe to be underpriced and sell a contract their believe is overprice. This means they don't necessarily buy the contract they believe is most likely to pay out, but the one which they believe is most under valued.
+\end{example}
+
+\begin{definition}{Arbitrage}
+  \textit{Arbitrage} is the act of simultaneously buying/selling across markets to make a risk-free profit.
+  \par Consider a \textit{Winner-Takes-All} market which pays $\£1$ to whichever of two events occurs. If the sum price to buy a contract for each event is below $\£1$ then you are guaranteed to make a profit. In this event you should buy as many pairs of shares as you can.
+  \par \textit{Arbitrage} opportunities don't last for long as the increased demand causes the price of both contracts to rise, thus removing the guaranteed profit. Thus \textit{Arbitrage} opportunities often only occur when trading the same event in different markets.
+\end{definition}
+
 \end{document}

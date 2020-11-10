@@ -1432,4 +1432,96 @@
   \par \textit{Arbitrage} opportunities don't last for long as the increased demand causes the price of both contracts to rise, thus removing the guaranteed profit. Thus \textit{Arbitrage} opportunities often only occur when trading the same event in different markets.
 \end{definition}
 
+\section{Blockchain}
+
+\begin{remark}{Limitations of Current Set up}
+  \begin{itemize}
+    \item There are intermediary fees between seller \& buyer transactions. Meaning neither gets full value of a transaction, and thus this could be considered an inefficency.
+  \end{itemize}
+\end{remark}
+
+\begin{remark}{Which is the true chain}
+  If there are two conflicting blockchains, then the longer one is accepted as the truer version. (As it takes less work to add the conflicting nodes of the shorter chain onto the longer chain than visa-versa).
+\end{remark}
+
+\subsection{Bitcoin}
+
+\begin{definition}{Bitcoin}
+  Bitcoin is a digital currency based on blockchain.
+\end{definition}
+
+\begin{definition}{Blockchain Block}
+  Each \textit{Block} on the \textit{Blockchain} has a \textit{header} containing the following
+  \begin{enumerate}
+    \item Timestamp and version number.
+    \item A hash of the previous block header. This links this block into the chain.
+    \item A \textit{merkle root} summarising the new transactions that the block contains - this means every block will contain a history of all bitcoin transactions. (This makes it hard for someone to change the block as this value would be inconsistent with other blocks in the chain).
+    \item A \textit{nonce value} chosen by the miner such that when the header is hashed using $SHA256^2$ the resulting 256-bit hash has at least $x$ leading 0s. The greater the value of $x$ the harder the nonce discovery step is. This step generally requires a lot of brute force work to find a \textit{golden nonce value}.
+  \end{enumerate}
+  \par Using $SHA256^2$ makes the hashing practically irreversible.
+  \par After the header, there is a list of transaction that are recorded by the block (and summarised in the block's header), including the transactions that pays the miner their fee.
+\end{definition}
+
+\begin{definition}{Bitcoin Miner}
+  \textit{Bitcoin Miners} can add transaction onto the blockchain. They compete to be the first to mine a block in order to keep the fee from all the transactions in the block (and a block reward (new bitcoins added into the economy)).
+  \par Miners stop mining a block once they are told that the blockchain has been extended.
+\end{definition}
+
+\begin{definition}{Bitcoin Rewards}
+  The rewards payed to miners act as a way for new bitcoins to enter circulation and encourage miners to complete the computation difficult process of mining. The value of the reward is regular decreased (halved every 10,000 blocks ~4yrs) in order to control money flow.
+  \par Mining is meant to be hard, as this acts as ``proof of work'', keeping blockchain consistent and reliable.
+\end{definition}
+
+\begin{proposition}{Bitcoin Transaction Step}
+  For a \textit{Bitcoin} Transaction to occur the following need to be fulfilled.
+  \begin{enumerate}
+    \item Two parties agree a transaction. (ie what value will be transacted). Typically a ``fee'' is added to the transaction in order to encourage bitcoin miners to complete their transaction quickly (the miner keeps the fee).
+    \item Create a transaction message. The message is created by the purchaser and has three components
+    \begin{enumerate}
+      \item A reference to the transaction in which the purchaser gained the bitcoins they will now spend.
+      \item The addresses involved in the payment (purchaser and seller).
+      \item Amounts to be be payed to each address (change is payed to the purchaser).
+    \end{enumerate}
+    \item Sign the transaction message. The purchaser signs the message by encrypting it using their private key. (Others can confirm that the message was made by this purchaser by using the purchaser's public key to decryt it).
+    \item Broadcast the transaction message (along with the purchasers public key) across the distributed network of bitcoin participants. Each peer in the network validates the transaction meets certain constraints. (Note the transaction is not on the ledger yet).
+    \item Verify the transaction message.
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}{Forks}
+  Suppose block $Z$ is the globally agreed end of the chain. Now suppose two nodes complete mining different blocks at the same time $R$ and $G$ respectively. They will propagate these sucessful minings out and that they should be placed after block $Z$. The network is no longer globally consistent as some notes will have $Z\to R$ and some $Z\to G$ as the end of their version of the chain.
+  \par Now suppose a node, which has $Z\to G$ as the end of its chain, successfully mines block $P$ and propogates it out as occuring after block $G$. This will cause a \textit{fork} at nodes which have $Z\to R$ as the end of their chain. For these nodes, block $R$ is orphaned (and needs re-mining) and the end of their chain now looks like $Z\to G\to P$.
+\end{remark}
+
+\begin{definition}{Blockchain}
+  \textit{Blockchain} is a distributed ledger.
+\end{definition}
+
+\begin{remark}{R3 CEV LLp}
+  R3 is a consortium of banks which are developing a blockchain technology for recording inter-bank transactions. This has been criticised as blockchain tech is often slower and more expensive than the existing tech.
+\end{remark}
+
+\begin{remark}{Concerns around Bitcoin}
+  There are several concerns about bitcoins (although many are shared with physical currency).
+  \begin{itemize}
+    \item Theft or loss of private keys. (Equivalent to loosing physical wallet or forgetting pin).
+    \item Loss of anonymity.
+    \item Attacks (DDos \& Sybil Attacks).
+    \item Overall energy consumption.
+    \item Illegal content on the block chain.
+    \item EMP bomb.
+    \item Exchange/Value collapse.
+    \item Future behaviour of bitcoiners is uncertain.
+  \end{itemize}
+  Moreover, many academics believe that blockchain itself is flawed (or at least very overhyped).
+\end{remark}
+
+\begin{remark}{Blockchain is a Libertarians dream}
+  Due its decentralised nature. Although, there is still a concentration of people who perform most the work and thus hold most the power in the blockchain (And these people are, generally, anonymous!)!
+\end{remark}
+
+\begin{proposition}{Technological Context of Blockchain}
+  Blockchain is a small subset of \textit{Distributed Systems Tech}.
+\end{proposition}
+
 \end{document}
